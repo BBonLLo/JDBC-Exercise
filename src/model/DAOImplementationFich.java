@@ -9,25 +9,56 @@ import ExceptionManager.ExceptionManager;
 import clases.Account;
 import clases.Customer;
 import clases.Movement;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import utility.MyObjectOutputStream;
 
 /**
  *
  * @author unaib, Leire
  */
 public class DAOImplementationFich implements DAO{
+    String fichero = "bankdb.dat";
+    File fich = new File(fichero);
+    
+    @Override
+    public void createCustomer(Customer customer) throws ExceptionManager{
+        FileOutputStream fos = null;
+        MyObjectOutputStream moos = null;
+        ObjectOutputStream oos = null;
+        Customer newCustomer = new Customer();
+        
+        try {
+            if (fich.exists()) {
+                fos = new FileOutputStream(fich, true);
+                moos = new MyObjectOutputStream(fos);
+                
+                newCustomer = getCustomerData(customer.getId());
+                if(newCustomer == null){
+                    moos.writeObject(customer);
+                }else{
+                    
+                }
+            } 
+            else {
+                fos = new FileOutputStream(fich);
+                oos = new ObjectOutputStream(fos);
+            }
+            moos.close();
+            oos.close();
+            fos.close();
+        } catch (Exception e) {
+        }
+    }
 
     @Override
-    public void createCustomer(Customer customer) {
+    public Customer getCustomerData(int id) throws ExceptionManager{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Customer getCustomerData(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Account getCustomerAccounts(Customer customer) {
+    public Account getCustomerAccounts(Customer customer) throws ExceptionManager{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

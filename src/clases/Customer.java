@@ -5,6 +5,8 @@
  */
 package clases;
 
+import java.util.List;
+
 /**
  *
  * @author unaib
@@ -21,88 +23,94 @@ public class Customer {
     private Integer zip;
     private Integer phone;
     private String email;
-
-    public Customer() {
-    }
+    private List<Account>[] accounts; 
 
     public Integer getId() {
         return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getMiddleInitial() {
-        return middleInitial;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public Integer getZip() {
-        return zip;
-    }
-
-    public Integer getPhone() {
-        return phone;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    public String getMiddleInitial() {
+        return middleInitial;
+    }
+
     public void setMiddleInitial(String middleInitial) {
         this.middleInitial = middleInitial;
+    }
+
+    public String getStreet() {
+        return street;
     }
 
     public void setStreet(String street) {
         this.street = street;
     }
 
+    public String getCity() {
+        return city;
+    }
+
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getState() {
+        return state;
     }
 
     public void setState(String state) {
         this.state = state;
     }
 
+    public Integer getZip() {
+        return zip;
+    }
+
     public void setZip(Integer zip) {
         this.zip = zip;
+    }
+
+    public Integer getPhone() {
+        return phone;
     }
 
     public void setPhone(Integer phone) {
         this.phone = phone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Account>[] getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account>[] accounts) {
+        this.accounts = accounts;
     }
 
     public String getDatos() {
