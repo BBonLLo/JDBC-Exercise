@@ -12,7 +12,7 @@ import clases.Movement;
 
 /**
  *
- * @author unaib
+ * @author unaib, Leire
  */
 public class DAOImplementationFich implements DAO{
 
