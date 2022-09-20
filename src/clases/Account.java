@@ -22,7 +22,6 @@ public class Account {
     private LocalDate beginBalanceTimestamp;
     private AccountType type;
     private List<Movement>[] movements;
-    private List<Customer>[] customers;
 
     public Account() {
     }
@@ -91,15 +90,7 @@ public class Account {
         this.movements = movements;
     }
 
-    public List<Customer>[] getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer>[] customers) {
-        this.customers = customers;
-    }
-
     public String getDatos() {
-        return "Account{" + "id=" + id + ", description=" + description + ", balance=" + balance + ", creditLine=" + creditLine + ", beginBalance=" + beginBalance + ", beginBalanceTimestamp=" + beginBalanceTimestamp + ", type=" + type + ", movements=" + movements + ", customers=" + customers + '}';
+        return "Account{" + "id=" + id + ", description=" + description + ", balance=" + balance + ", creditLine=" + creditLine + ", beginBalance=" + beginBalance + ", beginBalanceTimestamp=" + beginBalanceTimestamp + ", type=" + type + ", movements=" + movements + '}';
     }
 }
