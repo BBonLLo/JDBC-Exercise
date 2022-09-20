@@ -5,7 +5,7 @@
  */
 package model;
 
-import ExceptionManager.ExceptionManager;
+import exceptionManager.ExceptionManager;
 import clases.*;
 
 /**
@@ -14,11 +14,11 @@ import clases.*;
  */
 public interface DAO {
 
-    public void createCustomer(Customer customer);
+    public void createCustomer(Customer customer) throws ExceptionManager;
 
-    public Customer getCustomerData(Customer customer);
+    public Customer getCustomerData(int id) throws ExceptionManager;
 
-    public Account getCustomerAccounts(Customer customer);
+    public Account getCustomerAccounts(Customer customer) throws ExceptionManager;
 
     public void createCustomerAccount(Customer customer) throws ExceptionManager;
 

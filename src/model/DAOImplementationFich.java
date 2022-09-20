@@ -5,55 +5,101 @@
  */
 package model;
 
-import ExceptionManager.ExceptionManager;
+import exceptionManager.ExceptionManager;
 import clases.Account;
 import clases.Customer;
 import clases.Movement;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 /**
  *
  * @author unaib
  */
-public class DAOImplementationFich implements DAO{
+public class DAOImplementationFich implements DAO {
+
+    String fichero = "bankdb.dat";
+    File fich = new File(fichero);
 
     @Override
-    public void createCustomer(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void createCustomer(Customer customer) throws ExceptionManager {
+        if (fich.exists()) {
+
+        } else {
+
+        }
     }
 
     @Override
-    public Customer getCustomerData(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Customer getCustomerData(int id) throws ExceptionManager {
+        if (fich.exists()) {
+            FileInputStream fis = null;
+            ObjectInputStream ois = null;
+
+            Customer newCustomer = new Customer();
+
+        } else {
+
+        }
+        return null;
     }
 
     @Override
-    public Account getCustomerAccounts(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Account getCustomerAccounts(Customer customer) throws ExceptionManager {
+        if (fich.exists()) {
+
+        } else {
+
+        }
+        return null;
     }
 
     @Override
     public void createCustomerAccount(Customer customer) throws ExceptionManager {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (fich.exists()) {
+
+        } else {
+
+        }
     }
 
     @Override
     public void addClientToAccount(Customer customer, Account account) throws ExceptionManager {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (fich.exists()) {
+
+        } else {
+
+        }
     }
 
     @Override
     public Account getAccountData(Account account) throws ExceptionManager {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (fich.exists()) {
+
+        } else {
+
+        }
+        return null;
     }
 
     @Override
     public void makeAccountMovement(Account account, Movement movement) throws ExceptionManager {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (fich.exists()) {
+
+        } else {
+
+        }
     }
 
     @Override
     public Account getAccountMovement(Account account) throws ExceptionManager {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (fich.exists()) {
+
+        } else {
+
+        }
+        return null;
     }
-    
+
 }
