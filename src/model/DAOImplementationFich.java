@@ -9,6 +9,7 @@ import ExceptionManager.ExceptionManager;
 import clases.Account;
 import clases.Customer;
 import clases.Movement;
+import java.util.List;
 
 /**
  *
@@ -27,12 +28,12 @@ public class DAOImplementationFich implements DAO{
     }
 
     @Override
-    public Account getCustomerAccounts(Customer customer) {
+    public List<Account>[] getCustomerAccounts(Customer customer) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void createCustomerAccount(Customer customer) throws ExceptionManager {
+    public void createCustomerAccount(Customer customer, Movement movement) throws ExceptionManager {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

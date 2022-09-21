@@ -11,14 +11,16 @@ import clases.Customer;
 import clases.Movement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
  * @author unaiz
  */
 public class DAOImplementationDB implements DAO {
-    private Connection con;
+         private Connection con;
 	private PreparedStatement stmt;
 	private ConnectionOpenClose conection = new ConnectionOpenClose();
     
@@ -59,38 +61,75 @@ public class DAOImplementationDB implements DAO {
     }
 
     @Override
-    public Customer getCustomerData(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Customer getCustomerData(Customer customer)throws ExceptionManager {
+        ResultSet rs = null;
+	
+        Customer getCustomer= null;
+        
+        con = conection.openConnection();
+		final String SEARCHcustomer = "SELECT * from customer where id = ?";
+        try {
+			stmt = con.prepareStatement(SEARCHcustomer);
+                       
+			stmt.setInt(1, customer.getId());
+                        rs = stmt.executeQuery();
+                        if (rs.next()) {
+                            getCustomer = new Customer();
+                            getCustomer.setId(rs.getInt("id"));
+                            getCustomer.setEmail(rs.getString("email"));
+                            getCustomer.setFirstName(rs.getString("firstName")); 
+                            getCustomer.setLastName(rs.getString("lastName"));
+                            getCustomer.setPhone(rs.getInt("phone"));
+                            getCustomer.setState(rs.getString("state"));
+                            getCustomer.setStreet(rs.getString("street"));
+                            getCustomer.setZip(rs.getInt("zip"));
+
+                            
+                           }
+                        if (rs != null)
+				rs.close();
+			conection.closeConnection(stmt, con);
+		} catch (SQLException e) {
+			String msg = "CANT RECOVER CUSTOMER INFO";
+			ExceptionManager x = new ExceptionManager(msg);
+			throw x;
+		}
+		return getCustomer;
+			
+                        
     }
 
     @Override
-    public Account getCustomerAccounts(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Account>[] getCustomerAccounts(Customer customer) throws ExceptionManager{
+             return null;
+    
     }
 
     @Override
-    public void createCustomerAccount(Customer customer) throws ExceptionManager {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void createCustomerAccount(Customer customer,  Movement movement) throws ExceptionManager{
+      
     }
 
     @Override
     public void addClientToAccount(Customer customer, Account account) throws ExceptionManager {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
-    public Account getAccountData(Account account) throws ExceptionManager {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Account getAccountData(Account account) throws ExceptionManager  {
+             return null;
+       
     }
 
     @Override
     public void makeAccountMovement(Account account, Movement movement) throws ExceptionManager {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  
     }
 
     @Override
     public Account getAccountMovement(Account account) throws ExceptionManager {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+             return null;
+      
     }
     
 }
