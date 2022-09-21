@@ -23,7 +23,7 @@ public class Customer {
     private Integer zip;
     private Integer phone;
     private String email;
-    private List<Account>[] Accounts;
+    private List<Account> Accounts;
 
     public Customer() {
     }
@@ -108,11 +108,11 @@ public class Customer {
         this.email = email;
     }
 
-    public List<Account>[] getAccounts() {
+    public List<Account> getAccounts() {
         return Accounts;
     }
 
-    public void setAccounts(List<Account>[] Accounts) {
+    public void setAccounts(List<Account> Accounts) {
         this.Accounts = Accounts;
     }
     

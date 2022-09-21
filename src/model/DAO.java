@@ -7,6 +7,7 @@ package model;
 
 import exceptionManager.ExceptionManager;
 import clases.*;
+import java.util.List;
 
 /**
  *
@@ -18,7 +19,7 @@ public interface DAO {
 
     public Customer getCustomerData(int id) throws ExceptionManager;
 
-    public Account getCustomerAccounts(Customer customer) throws ExceptionManager;
+    public List<Account> getCustomerAccounts(Customer customer) throws ExceptionManager;
 
     public void createCustomerAccount(Customer customer) throws ExceptionManager;
 
