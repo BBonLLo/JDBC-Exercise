@@ -28,7 +28,7 @@ public class DAOImplementationFich implements DAO{
     }
 
     @Override
-    public List<Account>[] getCustomerAccounts(Customer customer) {
+    public List<Account> getCustomerAccounts(Customer customer) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
