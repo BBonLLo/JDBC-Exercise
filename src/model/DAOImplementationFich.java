@@ -161,8 +161,41 @@ public class DAOImplementationFich implements DAO {
     }
 
     @Override
-    public Account getAccountMovement(Account account) throws ExceptionManager {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public List<Movement> getAccountMovement(Account account) throws ExceptionManager {
+        Account newAccount = null;
+        List<Movement> movements = new ArrayList<>();
 
+        if (fich.exists()) {
+           FileInputStream fis;
+            ObjectInputStream ois;
+            try {
+                fis = new FileInputStream(fich);
+                ois = new ObjectInputStream(fis);
+
+                int count = Util.calculoFichero(fich);
+
+                for (int i = 0; i < count; i++) {
+                    newAccount = new Account();
+                    newAccount = (Account) ois.readObject();
+
+                    if (newAccount.getId() == account.getId()) {
+                        movements = newAccount.getMovements();
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                ExceptionManager e = new ExceptionManager("The file doesn't exist");
+                throw e;
+            } catch (ClassNotFoundException ex) {
+                ExceptionManager e = new ExceptionManager("Class not found");
+                throw e;
+            } catch (IOException ex) {
+                ExceptionManager e = new ExceptionManager("Don't work");
+                throw e;
+            }
+        } else {
+            ExceptionManager e = new ExceptionManager("The file doesn't exist");
+            throw e;
+        }
+        return movements;
+    }
 }

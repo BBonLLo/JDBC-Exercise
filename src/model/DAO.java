@@ -29,6 +29,6 @@ public interface DAO {
 
     public void makeAccountMovement(Account account, Movement movement) throws ExceptionManager;
 
-    public Account getAccountMovement(Account account) throws ExceptionManager;
+    public List<Movement> getAccountMovement(Account account) throws ExceptionManager;
 
 }

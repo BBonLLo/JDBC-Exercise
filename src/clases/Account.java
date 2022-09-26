@@ -21,7 +21,7 @@ public class Account {
     private Double beginBalance;
     private LocalDate beginBalanceTimestamp;
     private AccountType type;
-    private List<Movement>[] movements;
+    private List<Movement> movements;
 
     public Account() {
     }
@@ -82,11 +82,11 @@ public class Account {
         this.type = type;
     }
 
-    public List<Movement>[] getMovements() {
+    public List<Movement> getMovements() {
         return movements;
     }
 
-    public void setMovements(List<Movement>[] movements) {
+    public void setMovements(List<Movement> movements) {
         this.movements = movements;
     }
 
