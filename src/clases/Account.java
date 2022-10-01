@@ -23,7 +23,8 @@ public class Account {
     private Double beginBalance;
     private LocalDate beginBalanceTimestamp;
     private AccountType type;
-    private List<Movement>[] movements;
+
+    private List<Movement> movements;
 
     public Account() {
     }
@@ -84,13 +85,14 @@ public class Account {
         this.type = type;
     }
 
-    public List<Movement>[] getMovements() {
+    public List<Movement> getMovements() {
         return movements;
     }
 
-    public void setMovements(List<Movement>[] movements) {
+    public void setMovements(List<Movement> movements) {
         this.movements = movements;
     }
+
 
     public String getDatos() {
         return "Account{" + "id=" + id + ", description=" + description + ", balance=" + balance + ", creditLine=" + creditLine + ", beginBalance=" + beginBalance + ", beginBalanceTimestamp=" + beginBalanceTimestamp + ", type=" + type + ", movements=" + movements + '}';
@@ -110,3 +112,4 @@ public class Account {
       creditLine = Util.leerDouble("Insert the credit Line:");
     }
 }
+

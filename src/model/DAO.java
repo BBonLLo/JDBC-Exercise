@@ -15,6 +15,7 @@ import java.util.List;
  */
 public interface DAO {
 
+
     public void createCustomer(Customer customer)throws ExceptionManager;
 
     public Customer getCustomerData(Customer customer)throws ExceptionManager;
@@ -29,6 +30,6 @@ public interface DAO {
 
     public void makeAccountMovement(Account account, Movement movement) throws ExceptionManager;
 
-    public Account getAccountMovement(Account account) throws ExceptionManager;
+    public List<Movement> getAccountMovement(Account account) throws ExceptionManager;
 
 }
