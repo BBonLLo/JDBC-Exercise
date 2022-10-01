@@ -6,6 +6,8 @@
 package clases;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import utility.Util;
 
 /**
  *
@@ -60,6 +62,30 @@ public class Movement {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public void setDatos(Double balancesIntro) {
+        boolean rigthMovementType = false;
+
+        description = Util.introducirCadena("Write a description of the movement: ");
+        balance = balancesIntro;
+        amount = Util.leerDouble("Insert the amount to operate with: ");
+        do {
+            switch (Util.introducirCadena("The movement is a deposit or a withdraw? [dep / with]")) {
+                case "dep":
+                    balance = balance + amount;
+                    rigthMovementType = true;
+                    break;
+                case "with":
+                    balance = balance - amount;
+                    rigthMovementType = true;
+                    break;
+                default:
+                    System.out.println("Not valid argument.");
+                    break;
+            }
+        } while (!rigthMovementType);
+        timestamp = LocalDate.now();
     }
 
     public String getDatos() {

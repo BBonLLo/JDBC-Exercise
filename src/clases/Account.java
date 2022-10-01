@@ -90,6 +90,10 @@ public class Account {
     public void setMovements(List<Movement>[] movements) {
         this.movements = movements;
     }
+    
+    public void setDatos(){
+        
+    }
 
     public String getDatos() {
         return "Account{" + "id=" + id + ", description=" + description + ", balance=" + balance + ", creditLine=" + creditLine + ", beginBalance=" + beginBalance + ", beginBalanceTimestamp=" + beginBalanceTimestamp + ", type=" + type + ", movements=" + Arrays.toString(movements) + '}';

@@ -305,6 +305,45 @@ public class Util {
         return fNumero;
     }
 
+    public static double leerDouble(String mensaje, double x, double y) {
+        double num = 0;
+        boolean ok;
+        System.out.println(mensaje);
+        do {
+            try {
+                ok = true;
+                num = Double.parseDouble(introducirCadena());
+
+            } catch (NumberFormatException e) {
+                System.out.println("Hay que introducir n�meros");
+                ok = false;
+                num = x;
+
+            }
+            if (num < x || num > y) {
+                System.out.println("Dato fuera de rango, introduce entre" + x + " y " + y);
+                ok = false;
+            }
+        } while (!ok);
+        return num;
+    }
+
+    public static double leerDouble(String mensaje) {
+        double fNumero = 0;
+        boolean ok;
+        System.out.println(mensaje);
+        do {
+            try {
+                ok = true;
+                fNumero = Double.parseDouble(introducirCadena());
+            } catch (NumberFormatException e) {
+                System.out.println("Error al introducir el n?mero");
+                ok = false;
+            }
+        } while (!ok);
+        return fNumero;
+    }
+
     public static boolean esBoolean() {
         String respu;
         do {

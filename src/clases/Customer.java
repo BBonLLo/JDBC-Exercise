@@ -6,6 +6,7 @@
 package clases;
 
 import java.util.List;
+import utility.Util;
 
 /**
  *
@@ -23,7 +24,7 @@ public class Customer {
     private Integer zip;
     private Integer phone;
     private String email;
-    private List<Account> Accounts;
+    private List<Account> accounts;
 
     public Customer() {
     }
@@ -109,19 +110,28 @@ public class Customer {
     }
 
     public List<Account> getAccounts() {
-        return Accounts;
+        return accounts;
     }
 
     public void setAccounts(List<Account> Accounts) {
-        this.Accounts = Accounts;
+        this.accounts = Accounts;
     }
     
-    public void setDatos(){
-        
+    public void setDatos(int id){
+        this.id = id;
+        firstName = Util.introducirCadena("Insert the first name of the customer: ");
+        lastName = Util.introducirCadena("Insert the last name of the customer: ");
+        middleInitial = Util.introducirCadena("Insert the middle initial of the customer: ");
+        street = Util.introducirCadena("Insert the street of the customer: ");
+        city = Util.introducirCadena("Insert the city of the customer: ");
+        state = Util.introducirCadena("Insert the state of the customer: ");
+        zip = Util.leerInt("Insert the zip of the customer: ");
+        phone = Util.leerInt("Insert the phone of the customer: ");
+        email = Util.introducirCadena("Insert the email of the customer: ");
     }
-
+    
     public String getDatos() {
-        return "Customer{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", middleInitial=" + middleInitial + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phone=" + phone + ", email=" + email + ", Accounts=" + Accounts + '}';
+        return "Customer{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", middleInitial=" + middleInitial + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phone=" + phone + ", email=" + email + ", Accounts=" + accounts + '}';
     }
 
 }
