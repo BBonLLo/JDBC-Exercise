@@ -21,6 +21,7 @@ import java.util.List;
 import utility.MyObjectOutputStream;
 import utility.Util;
 
+
 /**
  *
  * @author unaib, Leire
@@ -76,6 +77,7 @@ public class DAOImplementationFich implements DAO {
     }
 
     @Override
+
     public void createCustomerAccount(Customer customer, Account account) throws ExceptionManager {
         FileOutputStream fos = null;
         MyObjectOutputStream moos = null;

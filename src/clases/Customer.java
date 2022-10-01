@@ -23,7 +23,20 @@ public class Customer {
     private Integer zip;
     private Integer phone;
     private String email;
-    private List<Account>[] accounts; 
+
+    private List<Account>[] accounts;
+
+    public List<Account>[] getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account>[] accounts) {
+        this.accounts = accounts;
+    }
+
+    public Customer() {
+    }
+
 
     public Integer getId() {
         return id;
@@ -113,8 +126,11 @@ public class Customer {
         this.accounts = accounts;
     }
 
-    public String getDatos() {
-        return "Movement{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", middleInitial=" + middleInitial + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phone=" + phone + ", email=" + email + '}';
+    @Override
+    public String toString() {
+        return "Customer{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", middleInitial=" + middleInitial + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phone=" + phone + ", email=" + email + ", accounts=" + accounts + '}';
     }
+
+   
 
 }

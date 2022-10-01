@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package jdbc.exercise;
+import controller.Controller;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.DAOFactory;
 
 /**
  *
@@ -15,8 +19,14 @@ public class JDBCExercise {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("jdbc.exercise.JDBCExercise.main()");
+        try {
+            // TODO code application logic here
+            new Controller().run(DAOFactory.getModel());
+        }  catch (Exception ex) {
+            System.out.println(ex.getLocalizedMessage());
+        }
+        
+        
     }
     
 }
