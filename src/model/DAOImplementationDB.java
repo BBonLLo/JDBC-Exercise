@@ -5,7 +5,7 @@
  */
 package model;
 
-import ExceptionManager.ExceptionManager;
+import exceptionManager.ExceptionManager;
 import clases.Account;
 import clases.AccountType;
 import clases.Customer;
@@ -136,7 +136,7 @@ public class DAOImplementationDB implements DAO {
     }
 
     @Override
-    public void createCustomerAccount(Customer customer, Movement movement) throws ExceptionManager {
+    public void createCustomerAccount(Customer customer, Account account) throws ExceptionManager {
 
     }
 
@@ -192,7 +192,7 @@ public class DAOImplementationDB implements DAO {
     }
 
     @Override
-    public Account getAccountMovement(Account account) throws ExceptionManager {
+     public List<Movement> getAccountMovement(Account account) throws ExceptionManager {
         return null;
 
     }

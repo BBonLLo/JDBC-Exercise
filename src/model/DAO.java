@@ -21,10 +21,9 @@ public interface DAO {
 
     public Customer getCustomerData(Customer customer)throws ExceptionManager;
 
-
     public List<Account> getCustomerAccounts(Customer customer)throws ExceptionManager;
 
-    public void createCustomerAccount(Customer customer, Movement movement) throws ExceptionManager;
+    public void createCustomerAccount(Customer customer, Account account) throws ExceptionManager;
 
     public void addClientToAccount(Customer customer, Account account) throws ExceptionManager;
 

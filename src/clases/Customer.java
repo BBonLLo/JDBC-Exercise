@@ -6,7 +6,7 @@
 package clases;
 
 import java.util.List;
-import utility.Util;
+import utils.Util;
 
 
 /**
@@ -139,9 +139,6 @@ public class Customer {
 
     }
 
-    public void setAccounts(List<Account>[] accounts) {
-        this.accounts = accounts;
-    }
 
     @Override
     public String toString() {

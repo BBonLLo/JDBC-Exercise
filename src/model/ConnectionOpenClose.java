@@ -11,7 +11,7 @@ package model;
  */
 
 
-import ExceptionManager.ExceptionManager;
+import exceptionManager.ExceptionManager;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

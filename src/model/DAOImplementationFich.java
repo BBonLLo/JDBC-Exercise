@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utility.MyObjectOutputStream;
-import utility.Util;
+import utils.Util;
 
 
 /**
@@ -45,13 +45,14 @@ public class DAOImplementationFich implements DAO {
         MyObjectOutputStream moos = null;
         ObjectOutputStream oos = null;
         Customer newCustomer = new Customer();
-
+        customer.setId(Util.calculoFichero(fichCustomer));
+        
         try {
-            if (fich.exists()) {
-                fos = new FileOutputStream(fich, true);
+            if (fichCustomer.exists()) {
+                fos = new FileOutputStream(fichCustomer, true);
                 moos = new MyObjectOutputStream(fos);
 
-                newCustomer = getCustomerData(customer.getId());
+                newCustomer = getCustomerData(customer);
                 if (newCustomer == null) {
                     moos.writeObject(customer);
                 } else {
@@ -59,7 +60,7 @@ public class DAOImplementationFich implements DAO {
                     throw e;
                 }
             } else {
-                fos = new FileOutputStream(fich);
+                fos = new FileOutputStream(fichCustomer);
                 oos = new ObjectOutputStream(fos);
             }
             moos.close();
@@ -76,7 +77,7 @@ public class DAOImplementationFich implements DAO {
     }
 
     @Override
-    public Customer getCustomerData(int id) throws ExceptionManager {
+    public Customer getCustomerData(Customer customer) throws ExceptionManager {
 
         Customer newCustomer = null;
 
@@ -93,7 +94,7 @@ public class DAOImplementationFich implements DAO {
                     newCustomer = new Customer();
                     newCustomer = (Customer) ois.readObject();
 
-                    if (newCustomer.getId() == id) {
+                    if (newCustomer.getId() == customer.getId()) {
                         i = count;
                     }
                 }
@@ -160,41 +161,72 @@ public class DAOImplementationFich implements DAO {
     }
 
     @Override
-
     public void createCustomerAccount(Customer customer, Account account) throws ExceptionManager {
-        FileOutputStream fos = null;
-        MyObjectOutputStream moos = null;
-        ObjectOutputStream oos = null;
-        List<Account> accounts = new ArrayList<Account>();
+        File fichCustomer2 = new File("bankdbCustomer2.dat");
+        FileOutputStream fosC = null;
+        ObjectInputStream oisC = null;
+        FileInputStream fisC = null;
+        ObjectOutputStream oosC = null;
+        FileOutputStream fosA = null;
+        MyObjectOutputStream moosA = null;
+        ObjectOutputStream oosA = null;
+        List<Account> accounts = new ArrayList<>(customer.getAccounts());
+        Customer auxCustomer = new Customer();
 
         try {
-            if (fich.exists()) {
-                fos = new FileOutputStream(fich, true);
-                moos = new MyObjectOutputStream(fos);
+            if (fichCustomer.exists() && fichAccount.exists()) {
+                fosC = new FileOutputStream(fichCustomer2);
+                oosC = new ObjectOutputStream(fosC);
+                fisC = new FileInputStream(fichCustomer);
+                oisC = new ObjectInputStream(fisC);
+                fosA = new FileOutputStream(fichAccount, true);
+                moosA = new MyObjectOutputStream(fosA);
 
-                accounts = getCustomerAccounts(customer);
-                for (int i = 0; i < accounts.size(); i++) {
-                    if (accounts.get(i).getId() == account.getId()) {
-                        ExceptionManager e = new ExceptionManager("The account exist");
-                        throw e;
+                int count = Util.calculoFichero(fichCustomer);
+                for (int i = 0; i < count; i++) {
+                    auxCustomer = new Customer();
+                    auxCustomer = (Customer) oisC.readObject();
+                    if (auxCustomer.getId() == customer.getId()) {
+                        accounts.add(account);
+                        customer.setAccounts(accounts);
+                        oosC.writeObject(customer);
+
                     } else {
-                        moos.writeObject(account);
+                        oosC.writeObject(auxCustomer);
                     }
                 }
+
+                moosA.writeObject(account);
+
+                fichCustomer.delete();
+                fichCustomer2.renameTo(fichCustomer);
+
             } else {
-                fos = new FileOutputStream(fich);
-                oos = new ObjectOutputStream(fos);
+                fosC = new FileOutputStream(fichCustomer);
+                oosC = new ObjectOutputStream(fosC);
+                fosA = new FileOutputStream(fichAccount);
+                oosA = new ObjectOutputStream(fosA);
+
+                accounts.add(account);
+                customer.setAccounts(accounts);
+                oosC.writeObject(customer);
+                oosA.writeObject(account);
             }
-            moos.close();
-            oos.close();
-            fos.close();
-        } catch (FileNotFoundException ex) {
+            oosC.close();
+            fosC.close();
+            oisC.close();
+            fisC.close();
+            moosA.close();
+            oosA.close();
+            fosA.close();
+        } catch (FileNotFoundException cex) {
             ExceptionManager e = new ExceptionManager("The file doesn't exist");
             throw e;
         } catch (IOException ex) {
             ExceptionManager e = new ExceptionManager("Don't work");
             throw e;
-
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOImplementationFich.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -268,14 +300,14 @@ public class DAOImplementationFich implements DAO {
 
         Account newAccount = null;
 
-        if (fich.exists()) {
+        if (fichAccount.exists()) {
             FileInputStream fis;
             ObjectInputStream ois;
             try {
-                fis = new FileInputStream(fich);
+                fis = new FileInputStream(fichAccount);
                 ois = new ObjectInputStream(fis);
 
-                int count = Util.calculoFichero(fich);
+                int count = Util.calculoFichero(fichAccount);
 
                 for (int i = 0; i < count; i++) {
                     newAccount = new Account();
@@ -365,14 +397,14 @@ public class DAOImplementationFich implements DAO {
         Account newAccount = null;
         List<Movement> movements = new ArrayList<>();
 
-        if (fich.exists()) {
-           FileInputStream fis;
+        if (fichAccount.exists()) {
+            FileInputStream fis;
             ObjectInputStream ois;
             try {
-                fis = new FileInputStream(fich);
+                fis = new FileInputStream(fichAccount);
                 ois = new ObjectInputStream(fis);
 
-                int count = Util.calculoFichero(fich);
+                int count = Util.calculoFichero(fichAccount);
 
                 for (int i = 0; i < count; i++) {
                     newAccount = new Account();
