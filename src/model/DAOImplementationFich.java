@@ -171,7 +171,7 @@ public class DAOImplementationFich implements DAO {
                         if (auxCustomer.getId() == customer.getId()) {
                             oos.writeObject(customer);
                         } else {
-                            oos.writeObject(ois.readObject());
+                            oos.writeObject(auxCustomer);
                         }
                     }
                     changes = true;
@@ -227,9 +227,9 @@ public class DAOImplementationFich implements DAO {
         try {
             fos = new FileOutputStream(fichAccount2);
             oos = new ObjectOutputStream(fos);
-            fis = new FileInputStream(fichCustomer);
+            fis = new FileInputStream(fichAccount);
             ois = new ObjectInputStream(fis);
-            if (fichCustomer.exists()) {
+            if (fichAccount.exists()) {
                 for (int i = 0; i < accountMovements.size(); i++) {
                     if (accountMovements.get(i).getId() == account.getId()) {
                         exists = true;
@@ -261,8 +261,8 @@ public class DAOImplementationFich implements DAO {
         }
 
         if (changes) {
-            fichCustomer.delete();
-            fichCustomer2.renameTo(fichCustomer);
+            fichAccount.delete();
+            fichAccount2.renameTo(fichAccount);
         }
 
     }
