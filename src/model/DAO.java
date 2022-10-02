@@ -5,7 +5,7 @@
  */
 package model;
 
-import ExceptionManager.ExceptionManager;
+import exceptionManager.ExceptionManager;
 import clases.*;
 import java.util.List;
 
@@ -16,9 +16,11 @@ import java.util.List;
 public interface DAO {
 
 
+
     public void createCustomer(Customer customer)throws ExceptionManager;
 
     public Customer getCustomerData(Customer customer)throws ExceptionManager;
+
 
     public List<Account> getCustomerAccounts(Customer customer)throws ExceptionManager;
 
