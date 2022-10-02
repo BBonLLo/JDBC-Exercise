@@ -9,7 +9,6 @@ import exceptionManager.ExceptionManager;
 import clases.Account;
 import clases.Customer;
 import clases.Movement;
-import com.sun.corba.se.impl.io.IIOPOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,8 +18,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utility.MyObjectOutputStream;
 import utils.Util;
 
@@ -32,8 +29,10 @@ public class DAOImplementationFich implements DAO {
 
     String ficheroCus = "bankdbCustomer.dat";
     File fichCustomer = new File(ficheroCus);
+
     String ficheroAcc = "bankdbAccount.dat";
     File fichAccount = new File(ficheroAcc);
+
     String ficheroMov = "bankdbMovement.dat";
     File fichMovement = new File(ficheroMov);
 
@@ -113,7 +112,6 @@ public class DAOImplementationFich implements DAO {
             ExceptionManager e = new ExceptionManager("Thhe file doesn't exist");
             throw e;
         }
-
     }
 
     @Override
@@ -217,14 +215,15 @@ public class DAOImplementationFich implements DAO {
             moosA.close();
             oosA.close();
             fosA.close();
-        } catch (FileNotFoundException cex) {
+        } catch (FileNotFoundException ex) {
             ExceptionManager e = new ExceptionManager("The file doesn't exist");
+            throw e;
+        } catch (ClassNotFoundException ex) {
+            ExceptionManager e = new ExceptionManager("Class not found");
             throw e;
         } catch (IOException ex) {
             ExceptionManager e = new ExceptionManager("Don't work");
             throw e;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOImplementationFich.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -279,11 +278,14 @@ public class DAOImplementationFich implements DAO {
             fos.close();
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(DAOImplementationFich.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DAOImplementationFich.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionManager e = new ExceptionManager("The file doesn't exist");
+            throw e;
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOImplementationFich.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionManager e = new ExceptionManager("Class not found");
+            throw e;
+        } catch (IOException ex) {
+            ExceptionManager e = new ExceptionManager("Don't work");
+            throw e;
         }
 
         if (changes) {

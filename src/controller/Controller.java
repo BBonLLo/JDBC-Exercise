@@ -5,8 +5,10 @@
  */
 package controller;
 
+import clases.Account;
 import exceptionManager.ExceptionManager;
 import clases.Customer;
+import clases.Movement;
 import java.io.File;
 import model.DAO;
 import utils.Util;
@@ -25,34 +27,55 @@ public class Controller {
 
     private static void getCustomerData(DAO model) throws ExceptionManager {
         Customer customer = new Customer();
-        int id = Util.leerInt("Introduce el ID del customer: ");
+        int id = Util.leerInt("Enter the customer ID: ");
         customer.setId(id);
-        customer= model.getCustomerData(customer);
+        customer = model.getCustomerData(customer);
         customer.getDatos();
     }
 
-    private static void getCustomerAccounts(DAO model) {
-        
+    //TODO corregir
+    private static void getCustomerAccounts(DAO model) throws ExceptionManager {
+        Customer customer = new Customer();
+        int id = Util.leerInt("Enter the customer ID: ");
+        customer.setId(id);
+        customer = (Customer) model.getCustomerAccounts(customer);
+        customer.getDatos();
     }
 
-    private static void createCustomerAccount(DAO model) {
-        
+    //TODO :-:
+    private static void createCustomerAccount(DAO model) throws ExceptionManager {
+        Customer customer = new Customer();
+        Account account = new Account();
+        int id = Util.leerInt("Enter the customer ID: ");
+        customer.setId(id);
+
     }
 
-    private static void addClientToAccount(DAO model) {
-        
+    //TODO :-:
+    private static void addClientToAccount(DAO model) throws ExceptionManager {
+        Customer customer = new Customer();
+        Account account = new Account();
     }
 
-    private static void getAccountData(DAO model) {
-        
+    //TODO corregir
+    private static void getAccountData(DAO model) throws ExceptionManager {
+        Account account = new Account();
+        account = model.getAccountData(account);
+        account.getDatos();
     }
 
-    private static void makeAccountMovement(DAO model) {
-        
+    //TODO :-:
+    private static void makeAccountMovement(DAO model) throws ExceptionManager {
+        Account account = new Account();
+        Movement movement = new Movement();
+
     }
 
-    private static void getAccountMovement(DAO model) {
-        
+    //TODO corregir
+    private static void getAccountMovement(DAO model) throws ExceptionManager {
+        Account account = new Account();
+        account = (Account) model.getAccountMovement(account);
+        account.getDatos();
     }
 
     public void run(DAO model) throws ExceptionManager {
