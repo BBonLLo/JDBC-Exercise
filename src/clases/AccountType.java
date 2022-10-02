@@ -5,11 +5,13 @@
  */
 package clases;
 
+import java.io.Serializable;
+
 /**
  *
  * @author unaib
  */
-public enum AccountType {
+public enum AccountType implements Serializable{
     STANDARD,
     CREDIT;
 }

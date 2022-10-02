@@ -7,7 +7,9 @@ package clases;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import utilidades.Util;
 
 /**
  *
@@ -22,7 +24,8 @@ public class Account {
     private Double beginBalance;
     private LocalDate beginBalanceTimestamp;
     private AccountType type;
-    private List<Movement>[] movements;
+    private List<Movement> movements;
+
 
     public Account() {
     }
@@ -83,19 +86,31 @@ public class Account {
         this.type = type;
     }
 
-    public List<Movement>[] getMovements() {
+    public List<Movement> getMovements() {
         return movements;
     }
 
-    public void setMovements(List<Movement>[] movements) {
+    public void setMovements(List<Movement> movements) {
         this.movements = movements;
-    }
-    
-    public void setDatos(){
-        
     }
 
     public String getDatos() {
-        return "Account{" + "id=" + id + ", description=" + description + ", balance=" + balance + ", creditLine=" + creditLine + ", beginBalance=" + beginBalance + ", beginBalanceTimestamp=" + beginBalanceTimestamp + ", type=" + type + ", movements=" + Arrays.toString(movements) + '}';
+        return "Account{" + "id=" + id + ", description=" + description + ", balance=" + balance + ", creditLine=" + creditLine + ", beginBalance=" + beginBalance + ", beginBalanceTimestamp=" + beginBalanceTimestamp + ", type=" + type + ", movements=" + movements + '}';
+    }
+    public void setDatos(){
+      description = Util.introducirCadena("Insert the movement description: ");
+      beginBalance = Util.leerDouble("Insert the beginning balance:");
+      beginBalanceTimestamp = LocalDate.now(); //we set the creation date to now.
+      char x = Util.leerChar("Set your account type type in S for Standar, C for Credit: ",'C', 'S');
+      if(x == 'C') {
+           type = AccountType.CREDIT;
+      }
+      else{
+           type = AccountType.STANDARD;
+      }
+      balance = Util.leerDouble("Insert the actual balance:");
+      creditLine = Util.leerDouble("Insert the credit Line:");
+
     }
 }
+

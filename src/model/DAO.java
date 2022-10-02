@@ -15,13 +15,16 @@ import java.util.List;
  */
 public interface DAO {
 
-    public void createCustomer(Customer customer) throws ExceptionManager;
 
-    public Customer getCustomerData(int id) throws ExceptionManager;
 
-    public List<Account> getCustomerAccounts(Customer customer) throws ExceptionManager;
+    public void createCustomer(Customer customer)throws ExceptionManager;
 
-    public void createCustomerAccount(Customer customer) throws ExceptionManager;
+    public Customer getCustomerData(Customer customer)throws ExceptionManager;
+
+
+    public List<Account> getCustomerAccounts(Customer customer)throws ExceptionManager;
+
+    public void createCustomerAccount(Customer customer, Movement movement) throws ExceptionManager;
 
     public void addClientToAccount(Customer customer, Account account) throws ExceptionManager;
 

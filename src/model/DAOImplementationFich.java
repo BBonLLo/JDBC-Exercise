@@ -24,11 +24,13 @@ import java.util.logging.Logger;
 import utility.MyObjectOutputStream;
 import utility.Util;
 
+
 /**
  *
- * @author unaib
+ * @author unaib, Leire
  */
 public class DAOImplementationFich implements DAO {
+
 
     String ficheroCus = "bankdbCustomer.dat";
     File fichCustomer = new File(ficheroCus);
@@ -39,15 +41,43 @@ public class DAOImplementationFich implements DAO {
 
     @Override
     public void createCustomer(Customer customer) throws ExceptionManager {
-        if (fich.exists()) {
+        FileOutputStream fos = null;
+        MyObjectOutputStream moos = null;
+        ObjectOutputStream oos = null;
+        Customer newCustomer = new Customer();
 
-        } else {
+        try {
+            if (fich.exists()) {
+                fos = new FileOutputStream(fich, true);
+                moos = new MyObjectOutputStream(fos);
+
+                newCustomer = getCustomerData(customer.getId());
+                if (newCustomer == null) {
+                    moos.writeObject(customer);
+                } else {
+                    ExceptionManager e = new ExceptionManager("The user exist");
+                    throw e;
+                }
+            } else {
+                fos = new FileOutputStream(fich);
+                oos = new ObjectOutputStream(fos);
+            }
+            moos.close();
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException ex) {
+            ExceptionManager e = new ExceptionManager("The file doesn't exist");
+            throw e;
+        } catch (IOException ex) {
+            ExceptionManager e = new ExceptionManager("Don't work");
+            throw e;
 
         }
     }
 
     @Override
     public Customer getCustomerData(int id) throws ExceptionManager {
+
         Customer newCustomer = null;
 
         if (fichCustomer.exists()) {
@@ -84,10 +114,12 @@ public class DAOImplementationFich implements DAO {
             ExceptionManager e = new ExceptionManager("Thhe file doesn't exist");
             throw e;
         }
+
     }
 
     @Override
     public List<Account> getCustomerAccounts(Customer customer) throws ExceptionManager {
+
         List<Account> accounts = new ArrayList<>();
         Customer newCustomer = null;
 
@@ -128,10 +160,40 @@ public class DAOImplementationFich implements DAO {
     }
 
     @Override
-    public void createCustomerAccount(Customer customer) throws ExceptionManager {
-        if (fich.exists()) {
 
-        } else {
+    public void createCustomerAccount(Customer customer, Account account) throws ExceptionManager {
+        FileOutputStream fos = null;
+        MyObjectOutputStream moos = null;
+        ObjectOutputStream oos = null;
+        List<Account> accounts = new ArrayList<Account>();
+
+        try {
+            if (fich.exists()) {
+                fos = new FileOutputStream(fich, true);
+                moos = new MyObjectOutputStream(fos);
+
+                accounts = getCustomerAccounts(customer);
+                for (int i = 0; i < accounts.size(); i++) {
+                    if (accounts.get(i).getId() == account.getId()) {
+                        ExceptionManager e = new ExceptionManager("The account exist");
+                        throw e;
+                    } else {
+                        moos.writeObject(account);
+                    }
+                }
+            } else {
+                fos = new FileOutputStream(fich);
+                oos = new ObjectOutputStream(fos);
+            }
+            moos.close();
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException ex) {
+            ExceptionManager e = new ExceptionManager("The file doesn't exist");
+            throw e;
+        } catch (IOException ex) {
+            ExceptionManager e = new ExceptionManager("Don't work");
+            throw e;
 
         }
     }
@@ -203,12 +265,42 @@ public class DAOImplementationFich implements DAO {
 
     @Override
     public Account getAccountData(Account account) throws ExceptionManager {
+
+        Account newAccount = null;
+
         if (fich.exists()) {
+            FileInputStream fis;
+            ObjectInputStream ois;
+            try {
+                fis = new FileInputStream(fich);
+                ois = new ObjectInputStream(fis);
 
+                int count = Util.calculoFichero(fich);
+
+                for (int i = 0; i < count; i++) {
+                    newAccount = new Account();
+                    newAccount = (Account) ois.readObject();
+
+                    if (newAccount.getId() == account.getId()) {
+                        return newAccount;
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                ExceptionManager e = new ExceptionManager("The file doesn't exist");
+                throw e;
+            } catch (ClassNotFoundException ex) {
+                ExceptionManager e = new ExceptionManager("Class not found");
+                throw e;
+            } catch (IOException ex) {
+                ExceptionManager e = new ExceptionManager("Don't work");
+                throw e;
+            }
         } else {
-
+            ExceptionManager e = new ExceptionManager("The file doesn't exist");
+            throw e;
         }
-        return null;
+        return newAccount;
+
     }
 
     @Override
@@ -269,12 +361,42 @@ public class DAOImplementationFich implements DAO {
 
     @Override
     public List<Movement> getAccountMovement(Account account) throws ExceptionManager {
+    
+        Account newAccount = null;
+        List<Movement> movements = new ArrayList<>();
+
         if (fich.exists()) {
+           FileInputStream fis;
+            ObjectInputStream ois;
+            try {
+                fis = new FileInputStream(fich);
+                ois = new ObjectInputStream(fis);
 
+                int count = Util.calculoFichero(fich);
+
+                for (int i = 0; i < count; i++) {
+                    newAccount = new Account();
+                    newAccount = (Account) ois.readObject();
+
+                    if (newAccount.getId() == account.getId()) {
+                        movements = newAccount.getMovements();
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                ExceptionManager e = new ExceptionManager("The file doesn't exist");
+                throw e;
+            } catch (ClassNotFoundException ex) {
+                ExceptionManager e = new ExceptionManager("Class not found");
+                throw e;
+            } catch (IOException ex) {
+                ExceptionManager e = new ExceptionManager("Don't work");
+                throw e;
+            }
         } else {
-
+            ExceptionManager e = new ExceptionManager("The file doesn't exist");
+            throw e;
         }
-        return null;
+        return movements;
     }
 
 }

@@ -20,6 +20,7 @@ public class Movement {
     private Double balance;
     private LocalDate timestamp;
     private Double amount;
+    
 
     public Movement() {
     }

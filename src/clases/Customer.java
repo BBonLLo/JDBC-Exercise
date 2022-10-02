@@ -8,6 +8,7 @@ package clases;
 import java.util.List;
 import utility.Util;
 
+
 /**
  *
  * @author unaib
@@ -25,6 +26,7 @@ public class Customer {
     private Integer phone;
     private String email;
     private List<Account> accounts;
+
 
     public Customer() {
     }
@@ -79,11 +81,13 @@ public class Customer {
 
     public String getState() {
         return state;
+
     }
 
     public void setState(String state) {
         this.state = state;
     }
+
 
     public Integer getZip() {
         return zip;
@@ -132,6 +136,18 @@ public class Customer {
     
     public String getDatos() {
         return "Customer{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", middleInitial=" + middleInitial + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phone=" + phone + ", email=" + email + ", Accounts=" + accounts + '}';
+
     }
+
+    public void setAccounts(List<Account>[] accounts) {
+        this.accounts = accounts;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", middleInitial=" + middleInitial + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phone=" + phone + ", email=" + email + ", accounts=" + accounts + '}';
+    }
+
+   
 
 }
