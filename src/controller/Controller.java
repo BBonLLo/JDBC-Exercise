@@ -94,6 +94,7 @@ public class Controller {
                     break;
 
                 case 9:
+                    System.out.println("Good bye");
                     break;
             }
         } while (opt != 9);
