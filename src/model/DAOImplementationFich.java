@@ -341,9 +341,14 @@ public class DAOImplementationFich implements DAO {
         File fichAccount2 = new File("bankdbAccount2.dat");
         ArrayList<Movement> accountMovements = (ArrayList<Movement>) getAccountMovement(account);
         FileOutputStream fos;
+        FileOutputStream fosM1;
+        FileOutputStream fosM2;
         ObjectOutputStream oos;
+        MyObjectOutputStream moosM1;
+        ObjectOutputStream oosM2;
         FileInputStream fis;
         ObjectInputStream ois;
+        Account auxAccount = new Account();
         int lengthFichCustomer = Util.calculoFichero(fichAccount);
         boolean changes = false;
         boolean exists = false;
@@ -353,20 +358,30 @@ public class DAOImplementationFich implements DAO {
             oos = new ObjectOutputStream(fos);
             fis = new FileInputStream(fichAccount);
             ois = new ObjectInputStream(fis);
+            fosM1 = new FileOutputStream(fichMovement, true);
+            fosM2 = new FileOutputStream(fichMovement, true);
+            moosM1 = new MyObjectOutputStream(fosM1);
+            oosM2 = new ObjectOutputStream(fosM2);
+
+            int count = Util.calculoFichero(fichAccount);
+
             if (fichAccount.exists()) {
-                for (int i = 0; i < accountMovements.size(); i++) {
-                    if (accountMovements.get(i).getId() == account.getId()) {
-                        exists = true;
-                        ExceptionManager em = new ExceptionManager("The customer has access to the account");
-                        throw em;
+                accountMovements.add(movement);
+                for (int i = 0; i < count; i++) {
+                    auxAccount = new Account();
+                    auxAccount = (Account) ois.readObject();
+                    if (auxAccount.getId() == account.getId()) {
+                        auxAccount.setMovements(accountMovements);
+                        oos.writeObject(auxAccount);
+                    } else {
+                        oos.writeObject(auxAccount);
                     }
                 }
-                if (!exists) {
-                    accountMovements.add(movement);
-                    for (int i = 0; i < lengthFichCustomer; i++) {
-                        oos.writeObject(accountMovements.get(i));
-                    }
-                    changes = true;
+                changes = true;
+                if (fichMovement.exists()) {
+                    moosM1.writeObject(movement);
+                } else {
+                    oosM2.writeObject(movement);
                 }
             } else {
                 ExceptionManager e = new ExceptionManager("The file doesn't exist");
@@ -380,6 +395,9 @@ public class DAOImplementationFich implements DAO {
 
         } catch (FileNotFoundException ex) {
             ExceptionManager e = new ExceptionManager("The file doesn't exist");
+            throw e;
+        } catch (ClassNotFoundException ex) {
+            ExceptionManager e = new ExceptionManager("Class not found");
             throw e;
         } catch (IOException ex) {
             ExceptionManager e = new ExceptionManager("Don't work");
