@@ -12,8 +12,12 @@ import clases.Customer;
 import clases.Movement;;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import static javax.swing.UIManager.getInt;
 
 
@@ -53,12 +57,9 @@ public class DAOImplementationDB implements DAO {
 
             stmt.setDouble(2, account.getBalance());
             stmt.setDouble(3, account.getBeginBalance());
-            
-            Timestamp ts = Timestamp.valueOf(account.getBeginBalanceTimestamp());
-            stmt.setTimestamp(4, ts);
 
-            //Timestamp ts = Timestamp.valueOf(account.getBeginBalanceTimestamp());
-            //stmt.setTimestamp(4, ts);
+            Timestamp ts = Timestamp.valueOf(account.getBeginBalanceTimestamp().Localdate);
+            stmt.setTimestamp(4, ts);
 
             stmt.setDouble(5, account.getCreditLine());
             stmt.setString(6, account.getDescription());
@@ -120,7 +121,36 @@ public class DAOImplementationDB implements DAO {
     }
 
     @Override
-    public Account getAccountMovement(Account account) throws ExceptionManager {
-        return null;
+    public List<Movement> getAccountMovement(Account account) throws ExceptionManager {
+        
+        List<Movement> movements = new ArrayList<>();
+        Movement getMovement = null;
+        ResultSet rs = null;
+        Integer accounts_id = account.getId();
+        
+        con = conection.openConnection();
+        String SEARCHMovementsFromAccount = "SELECT movements_id FROM account_movement where accounts_id = ?";
+        
+        try{
+            stmt = con.prepareStatement(SEARCHMovementsFromAccount);
+            stmt.setInt(1, accounts_id);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()){
+                getMovement.setId(rs.getInt("movements_id"));
+                movements.add(getMovement);
+            }
+            if (rs != null){
+                rs.close();
+            }
+            
+            conection.closeConnection(stmt, con);
+            
+        }catch (SQLException e){
+            String msg = "Error en recoger las movemientos";
+            ExceptionManager x = new ExceptionManager(msg);
+            throw x;
+        }
+        return movements;
     }
 }
