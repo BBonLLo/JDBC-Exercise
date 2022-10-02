@@ -24,13 +24,11 @@ import java.util.logging.Logger;
 import utility.MyObjectOutputStream;
 import utils.Util;
 
-
 /**
  *
  * @author unaib, Leire
  */
 public class DAOImplementationFich implements DAO {
-
 
     String ficheroCus = "bankdbCustomer.dat";
     File fichCustomer = new File(ficheroCus);
@@ -46,7 +44,7 @@ public class DAOImplementationFich implements DAO {
         ObjectOutputStream oos = null;
         Customer newCustomer = new Customer();
         customer.setId(Util.calculoFichero(fichCustomer));
-        
+
         try {
             if (fichCustomer.exists()) {
                 fos = new FileOutputStream(fichCustomer, true);
@@ -354,23 +352,14 @@ public class DAOImplementationFich implements DAO {
             fis = new FileInputStream(fichAccount);
             ois = new ObjectInputStream(fis);
             if (fichAccount.exists()) {
-                for (int i = 0; i < accountMovements.size(); i++) {
-                    if (accountMovements.get(i).getId() == account.getId()) {
-                        exists = true;
-                        ExceptionManager em = new ExceptionManager("The customer has access to the account");
-                        throw em;
-                    }
+                accountMovements.add(movement);
+                for (int i = 0; i < lengthFichCustomer; i++) {
+                    oos.writeObject(accountMovements.get(i));
                 }
-                if (!exists) {
-                    accountMovements.add(movement);
-                    for (int i = 0; i < lengthFichCustomer; i++) {
-                        oos.writeObject(accountMovements.get(i));
-                    }
-                    changes = true;
-                }
+                changes = true;
+
             } else {
-                ExceptionManager e = new ExceptionManager("The file doesn't exist");
-                throw e;
+                
             }
 
             ois.close();
@@ -393,7 +382,7 @@ public class DAOImplementationFich implements DAO {
 
     @Override
     public List<Movement> getAccountMovement(Account account) throws ExceptionManager {
-    
+
         Account newAccount = null;
         List<Movement> movements = new ArrayList<>();
 
